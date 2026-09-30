@@ -15,6 +15,14 @@ async function readFile(){
     }
 }
 
+async function readFileWithDelay(){
+    await new Promise ((resolve, reject) => {
+        setTimeout(resolve,1500)
+    })
+    let products = await readFile();
+    return products;
+}
+
 app.get("/products/:id", async(req, res) => {
     try{
         let products = await readFile();
