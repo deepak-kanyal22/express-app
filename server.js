@@ -1,48 +1,14 @@
 const express = require("express");
-const fs = require("fs/promises");
-const path = require("path");
+const productRoutes = require("./routes/productRoutes");
+
 const app = express();
-const port = 3000
-const cache = {}
+const port = 3000;
 
-const pathTOFile = path.join(__dirname,"db.json");
+app.use(express.json());
 
-async function readFile(){
-    try{
-        const data = await fs.readFile(pathToFile,"utf-8");
-        return JSON.parse(data);
-    } catch (err){
-        console.log(err);
-    }
-}
-
-async function readFileWithDelay(){
-    await new Promise ((resolve, reject) => {
-        setTimeout(resolve,1500)
-    })
-    let products = await readFile();
-    return products;
-}
-
-app.get("/products/:id", async(req, res) => {
-    try{
-        let key = req.url;
-        let value = cache[key];
-        if (value)
-            return res.json(value);
-
-        let products = await readFile();
-        cache[key] = products;
-        let {id} = req.params;
-        id = Number(id);
-        let product = products.find((item) => {return item.id === id});
-        res.json(products);
-    } catch (err){
-        console.log(err)
-    }
-});
+app.use(productRoutes);
 
 app.listen(port, () => {
-    console.log("Server running on port 3000");
+    console.log(`Server running on port ${port}`);
 });
 
