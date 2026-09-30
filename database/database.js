@@ -8,6 +8,14 @@ async function readFile() {
     return JSON.parse(data);
 }
 
+async function writeFile(products) {
+    await fs.writeFile(
+        pathTOFile,
+        JSON.stringify(products, null, 2)
+    );
+}
+
 module.exports = {
-    readFile  
+    readFile,
+    writeFile
 };
