@@ -56,7 +56,7 @@ node server.js
 
 The server runs at `http://localhost:3000`.
 
-## Technologies
+## Tech Stack
 
 * Node.js
 * Express.js
